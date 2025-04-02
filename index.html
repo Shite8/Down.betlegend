@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BetLegendaries - Smart Betting Tips</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFCC00;
+            --dark: #121212;
+            --gray: #1E1E1E;
+            --light: #FFFFFF;
+            --text-muted: #CCCCCC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            background: var(--gray);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.8s ease-out;
+            margin: 20px 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            width: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.3));
+        }
+        
+        h1 {
+            font-size: clamp(24px, 5vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: clamp(18px, 4vw, 20px);
+            color: var(--primary);
+            margin: 20px 0 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--primary);
+            transform: translateX(50%);
+        }
+        
+        p {
+            font-size: clamp(14px, 3vw, 15px);
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 204, 0, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            text-align: left;
+            position: relative;
+        }
+        
+        .highlight-box p {
+            color: var(--light);
+            font-weight: 500;
+            font-size: clamp(14px, 3.5vw, 15px);
+        }
+        
+        .highlight-box::after {
+            content: 'BEST BETTING APP 2025';
+            position: absolute;
+            top: -12px;
+            right: 10px;
+            background: var(--primary);
+            color: var(--dark);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 20px;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px var(--primary); }
+            to { box-shadow: 0 0 15px var(--primary); }
+        }
+        
+        .screenshots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .screenshots img {
+            width: calc(50% - 10px);
+            max-width: 120px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .screenshots img:active {
+            transform: scale(0.95);
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            border: none;
+            padding: 12px 20px;
+            font-size: clamp(15px, 4vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            margin: 8px 5px;
+            min-width: 140px;
+            width: 100%;
+            max-width: 200px;
+            touch-action: manipulation;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+            background-color: #E6B800;
+        }
+        
+        .btn.loading {
+            pointer-events: none;
+        }
+        
+        .btn-text {
+            transition: opacity 0.3s;
+        }
+        
+        .loading-dots {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--dark);
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .loading-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { 
+                transform: scale(0.6);
+                opacity: 0.5;
+            }
+            40% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .feature-item i {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .feature-item p {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .contact {
+            margin-top: 25px;
+        }
+        
+        .contact a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: clamp(14px, 3.5vw, 15px);
+        }
+        
+        .contact a i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+            touch-action: manipulation;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 0;
+            -webkit-user-drag: none;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: var(--dark);
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 101;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background-color: #E6B800;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+            
+            .highlight-box {
+                padding: 12px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+                max-width: 100%;
+            }
+            
+            .screenshots img {
+                width: calc(50% - 5px);
+            }
+            
+            .modal img {
+                width: 100%;
+                height: auto;
+                max-height: 80vh;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .logo {
+                width: 70px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="icon.png" alt="BetLegendaries Logo" class="logo">
+        <h1>BetLegendaries</h1>
+        <p>Your winning edge in sports betting</p>
+        
+        <div class="highlight-box">
+            <p>BetLegendaries provides <strong>data-driven betting tips</strong> with high accuracy rates. Our algorithms analyze thousands of matches to deliver <strong>sure betting opportunities</strong> that maximize your profits while minimizing risks.</p>
+        </div>
+        
+        <h2>Why Choose Us?</h2>
+        <div class="features">
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <p>90%+ Accuracy Rate</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-clock"></i>
+                <p>Daily Updated Tips</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <p>Low-Risk Strategies</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-coins"></i>
+                <p>Proven Profit System</p>
+            </div>
+        </div>
+
+        
+        <h2>Screenshots</h2>
+        <div class="screenshots">
+            <img src="screenshot1.jpg" alt="App Screenshot 1" onclick="openModal(this)">
+            <img src="screenshot2.jpg" alt="App Screenshot 2" onclick="openModal(this)">
+            <img src="screenshot3.jpg" alt="App Screenshot 3" onclick="openModal(this)">
+        </div>
+        
+        <div class="btn-group">
+            <button id="downloadBtn" class="btn">
+                <span class="btn-text">Download APK</span>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            
+            <a href="https://betlegend.store" class="btn">
+                <i class="fas fa-globe"></i> Web Version
+            </a>
+        </div>
+        
+        <div class="contact">
+            <h2>Contact Support</h2>
+            <a href="mailto:codewithme677@gmail.com">
+                <i class="fas fa-envelope"></i> codewithme677@gmail.com
+            </a>
+            <br>
+            <a href="https://www.facebook.com/profile.php?id=100086337920080">
+                <i class="fab fa-facebook"></i> BetLegendaries
+            </a>
+            <br>
+            <a href="https://wa.me/255621013667">
+                <i class="fab fa-whatsapp"></i> +255 621 013 667
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Full-Screen Screenshot">
+        </div>
+    </div>
+
+    <script>
+        function openModal(imgElement) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = imgElement.src;
+            document.body.style.overflow = 'hidden';
+            
+            // Reset image style to ensure proper display
+            modalImg.style.maxWidth = '100%';
+            modalImg.style.maxHeight = '100%';
+            modalImg.style.objectFit = 'contain';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Loading animation for download button
+        const downloadBtn = document.getElementById('downloadBtn');
+        const btnText = downloadBtn.querySelector('.btn-text');
+        const loadingDots = downloadBtn.querySelector('.loading-dots');
+
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            this.classList.add('loading');
+            btnText.style.opacity = '0';
+            loadingDots.style.display = 'flex';
+            
+            // Simulate download (replace with actual download logic)
+            setTimeout(() => {
+                window.location.href = 'https://expo.dev/artifacts/eas/fUYgCBbu1PQsRRXDeXYzjx.apk';
+                
+                // Reset button state (in case download fails)
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    btnText.style.opacity = '1';
+                    loadingDots.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+
+        // Better touch feedback
+        document.querySelectorAll('.btn, .screenshots img').forEach(el => {
+            el.addEventListener('touchstart', function() {
+                this.classList.add('active');
+            }, {passive: true});
+            
+            el.addEventListener('touchend', function() {
+                this.classList.remove('active');
+            }, {passive: true});
+        });
+    </script>
+</body>
+</html>
