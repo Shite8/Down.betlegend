@@ -36,33 +36,25 @@
             position: relative;
         }
         
-        /* Animated Gradient Background */
+        /* Simplified Gradient Background */
         .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            background: linear-gradient(-45deg, #121212, #1a1a1a, #222222, #1a1a1a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            z-index: -3;
+            background: var(--dark);
         }
         
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Floating Particles */
+        /* Reduced particles count */
         .particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             overflow: hidden;
         }
         
@@ -72,23 +64,47 @@
             border-radius: 50%;
             filter: blur(1px);
             animation: floatParticle linear infinite;
+            will-change: transform;
         }
         
         @keyframes floatParticle {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(100vh); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-20px); opacity: 0; }
         }
         
-        /* Glowing Orbs */
+        /* Simplified stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+            will-change: opacity;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Simplified orbs */
         .orb {
             position: fixed;
             border-radius: 50%;
             filter: blur(60px);
             opacity: 0.3;
             z-index: -1;
-            animation: pulseOrb 8s infinite alternate;
         }
         
         .orb-1 {
@@ -97,7 +113,6 @@
             background: var(--primary);
             top: -100px;
             left: -100px;
-            animation-delay: 0s;
         }
         
         .orb-2 {
@@ -106,7 +121,6 @@
             background: #FF6B00;
             bottom: -150px;
             right: -100px;
-            animation-delay: 2s;
         }
         
         .orb-3 {
@@ -115,35 +129,9 @@
             background: #00BFFF;
             top: 40%;
             right: 20%;
-            animation-delay: 4s;
         }
         
-        @keyframes pulseOrb {
-            0% { transform: scale(1); opacity: 0.3; }
-            100% { transform: scale(1.2); opacity: 0.5; }
-        }
-        
-        /* Animated Grid Pattern */
-        .grid-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 204, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 204, 0, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            opacity: 0.3;
-            animation: gridMove 20s linear infinite;
-        }
-        
-        @keyframes gridMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
-        
+        /* Main container with reduced animations */
         .container {
             background: rgba(30, 30, 30, 0.85);
             padding: 25px;
@@ -152,34 +140,25 @@
             text-align: center;
             width: 100%;
             max-width: 500px;
-            animation: fadeIn 0.8s ease-out, float 6s ease-in-out infinite;
             margin: 20px 0;
             position: relative;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 204, 0, 0.1);
             z-index: 1;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+            will-change: transform;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
         
         .logo {
             width: 80px;
             margin-bottom: 15px;
             filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.3));
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.3)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.6)); }
         }
         
         h1 {
@@ -188,12 +167,6 @@
             color: var(--primary);
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
-            animation: textGlow 3s infinite alternate;
-        }
-        
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
-            100% { text-shadow: 0 0 20px rgba(255, 204, 0, 0.6); }
         }
         
         h2 {
@@ -213,12 +186,6 @@
             height: 2px;
             background: var(--primary);
             transform: translateX(50%);
-            animation: lineExpand 1.5s ease-out;
-        }
-        
-        @keyframes lineExpand {
-            0% { width: 0; }
-            100% { width: 50%; }
         }
         
         p {
@@ -235,13 +202,6 @@
             margin: 20px 0;
             text-align: left;
             position: relative;
-            transform-origin: left center;
-            animation: highlightEntrance 0.8s ease-out;
-        }
-        
-        @keyframes highlightEntrance {
-            0% { transform: scaleX(0); opacity: 0; }
-            100% { transform: scaleX(1); opacity: 1; }
         }
         
         .highlight-box p {
@@ -261,17 +221,6 @@
             font-weight: bold;
             padding: 3px 8px;
             border-radius: 20px;
-            animation: glow 2s infinite alternate, floatSmall 3s ease-in-out infinite;
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 0 5px var(--primary); }
-            to { box-shadow: 0 0 15px var(--primary); }
-        }
-        
-        @keyframes floatSmall {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
         }
         
         .screenshots {
@@ -289,30 +238,11 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            transition: all 0.3s ease;
-            transform: perspective(500px) rotateY(0deg);
-            opacity: 0;
-            animation: fadeInUp 0.5s forwards;
-        }
-        
-        .screenshots img:nth-child(1) { animation-delay: 0.2s; }
-        .screenshots img:nth-child(2) { animation-delay: 0.4s; }
-        .screenshots img:nth-child(3) { animation-delay: 0.6s; }
-        .screenshots img:nth-child(4) { animation-delay: 0.8s; }
-        
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px) perspective(500px) rotateY(30deg); }
-            100% { opacity: 1; transform: translateY(0) perspective(500px) rotateY(0deg); }
+            transition: transform 0.2s ease;
         }
         
         .screenshots img:hover {
-            transform: perspective(500px) rotateY(5deg) scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
-            z-index: 2;
-        }
-        
-        .screenshots img:active {
-            transform: perspective(500px) rotateY(5deg) scale(0.95);
+            transform: scale(1.05);
         }
         
         .btn {
@@ -337,21 +267,6 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
         }
         
         .btn:active {
@@ -425,48 +340,22 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 12px;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: featureItemEntrance 0.5s forwards;
-        }
-        
-        .feature-item:nth-child(1) { animation-delay: 0.1s; }
-        .feature-item:nth-child(2) { animation-delay: 0.3s; }
-        .feature-item:nth-child(3) { animation-delay: 0.5s; }
-        .feature-item:nth-child(4) { animation-delay: 0.7s; }
-        
-        @keyframes featureItemEntrance {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            transition: all 0.2s ease;
         }
         
         .feature-item:hover {
-            transform: translateY(-5px);
             background: rgba(255, 204, 0, 0.1);
-            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.1);
         }
         
         .feature-item i {
             font-size: 22px;
             color: var(--primary);
             margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover i {
-            transform: scale(1.2);
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
         
         .feature-item p {
             font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover p {
-            color: var(--light);
         }
         
         .contact {
@@ -482,33 +371,76 @@
             margin: 8px 0;
             font-size: clamp(14px, 3.5vw, 15px);
             position: relative;
-            overflow: hidden;
-            padding: 5px 0;
-        }
-        
-        .contact a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .contact a:hover::after {
-            width: 100%;
         }
         
         .contact a i {
             margin-right: 8px;
             font-size: 18px;
-            transition: transform 0.3s ease;
         }
         
-        .contact a:hover i {
-            transform: scale(1.2);
+        /* Language Selector */
+        .language-selector {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+        
+        .language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            font-size: 13px;
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 204, 0, 0.2);
+        }
+        
+        .language-btn i {
+            font-size: 14px;
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--gray);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 5px 0;
+            display: none;
+            min-width: 120px;
+        }
+        
+        .language-dropdown.show {
+            display: block;
+        }
+        
+        .language-option {
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .language-option:hover {
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--primary);
+        }
+        
+        .language-option i {
+            font-size: 16px;
         }
         
         /* Modal Styles */
@@ -523,7 +455,6 @@
             background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s;
             touch-action: manipulation;
         }
         
@@ -542,12 +473,6 @@
             object-fit: contain;
             border-radius: 0;
             -webkit-user-drag: none;
-            animation: zoomIn 0.3s ease-out;
-        }
-        
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
         
         .close-btn {
@@ -565,17 +490,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            transition: all 0.2s;
             z-index: 101;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .close-btn:hover {
-            transform: rotate(90deg) scale(1.1);
             background-color: #E6B800;
         }
         
-        /* Mobile-specific optimizations */
+        /* Mobile optimizations */
         @media (max-width: 480px) {
             .container {
                 padding: 20px 15px;
@@ -623,6 +547,11 @@
                 width: 150px;
                 height: 150px;
             }
+            
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
         }
         
         @media (max-width: 350px) {
@@ -641,45 +570,73 @@
     </style>
 </head>
 <body>
-    <!-- Background Animation Elements -->
+    <!-- Background Elements -->
     <div class="bg-animation"></div>
     <div class="particles" id="particles"></div>
+    <div class="stars" id="stars"></div>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
-    <div class="grid-pattern"></div>
     
     <div class="container">
-        <img src="icon.png" alt="BetLegendaries Logo" class="logo">
-        <h1>BetLegendaries</h1>
-        <p>Your winning edge in sports betting</p>
-        
-        <div class="highlight-box">
-            <p>BetLegendaries provides <strong>data-driven betting tips</strong> with high accuracy rates. Our algorithms analyze thousands of matches to deliver <strong>sure betting opportunities</strong> that maximize your profits while minimizing risks.</p>
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <button class="language-btn" id="languageBtn">
+                <i class="fas fa-globe"></i>
+                <span id="currentLanguage">EN</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="language-dropdown" id="languageDropdown">
+                <div class="language-option" data-lang="en">
+                    <i class="fas fa-language"></i> English
+                </div>
+                <div class="language-option" data-lang="es">
+                    <i class="fas fa-language"></i> Español
+                </div>
+                <div class="language-option" data-lang="fr">
+                    <i class="fas fa-language"></i> Français
+                </div>
+                <div class="language-option" data-lang="de">
+                    <i class="fas fa-language"></i> Deutsch
+                </div>
+                <div class="language-option" data-lang="pt">
+                    <i class="fas fa-language"></i> Português
+                </div>
+                <div class="language-option" data-lang="sw">
+                    <i class="fas fa-language"></i> Kiswahili
+                </div>
+            </div>
         </div>
         
-        <h2>Why Choose Us?</h2>
+        <img src="icon.png" alt="BetLegendaries Logo" class="logo">
+        <h1 id="mainTitle">BetLegendaries</h1>
+        <p id="mainSubtitle">Your winning edge in sports betting</p>
+        
+        <div class="highlight-box">
+            <p id="highlightText">BetLegendaries provides <strong>data-driven betting tips</strong> with high accuracy rates. Our algorithms analyze thousands of matches to deliver <strong>sure betting opportunities</strong> that maximize your profits while minimizing risks.</p>
+        </div>
+        
+        <h2 id="whyChooseUs">Why Choose Us?</h2>
         <div class="features">
             <div class="feature-item">
                 <i class="fas fa-chart-line"></i>
-                <p>90%+ Accuracy Rate</p>
+                <p id="feature1">90%+ Accuracy Rate</p>
             </div>
             <div class="feature-item">
                 <i class="fas fa-clock"></i>
-                <p>Daily Updated Tips</p>
+                <p id="feature2">Daily Updated Tips</p>
             </div>
             <div class="feature-item">
                 <i class="fas fa-shield-alt"></i>
-                <p>Low-Risk Strategies</p>
+                <p id="feature3">Low-Risk Strategies</p>
             </div>
             <div class="feature-item">
                 <i class="fas fa-coins"></i>
-                <p>Proven Profit System</p>
+                <p id="feature4">Proven Profit System</p>
             </div>
         </div>
 
-        
-        <h2>Screenshots</h2>
+        <h2 id="screenshotsTitle">Screenshots</h2>
         <div class="screenshots">
             <img src="screenshot1.jpg" alt="App Screenshot 1" onclick="openModal(this)">
             <img src="screenshot2.jpg" alt="App Screenshot 2" onclick="openModal(this)">
@@ -689,7 +646,7 @@
         
         <div class="btn-group">
             <button id="downloadBtn" class="btn">
-                <span class="btn-text">Download APK</span>
+                <span class="btn-text" id="downloadText">Download APK</span>
                 <div class="loading-dots">
                     <span></span>
                     <span></span>
@@ -698,19 +655,19 @@
             </button>
             
             <a href="https://betlegend.store" class="btn">
-                <i class="fas fa-globe"></i> Web Version
+                <i class="fas fa-globe"></i> <span id="webVersionText">Web Version</span>
             </a>
         </div>
         
         <div class="contact">
-            <h2>Contact Support</h2>
+            <h2 id="contactTitle">Contact Support</h2>
             <div>
                 <a href="mailto:codewithme677@gmail.com">
                     <i class="fas fa-envelope"></i> codewithme677@gmail.com
                 </a>
                 <br>
                 <a href="https://www.facebook.com/profile.php?id=100086337920080">
-                    <i class="fab fa-facebook"></i> Developer Page
+                    <i class="fab fa-facebook"></i> <span id="developerPageText">Developer Page</span>
                 </a>
                 <br>
                 <a href="https://wa.me/255621013667">
@@ -729,6 +686,154 @@
     </div>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Your winning edge in sports betting",
+                highlightText: "BetLegendaries provides <strong>data-driven betting tips</strong> with high accuracy rates. Our algorithms analyze thousands of matches to deliver <strong>sure betting opportunities</strong> that maximize your profits while minimizing risks.",
+                whyChooseUs: "Why Choose Us?",
+                feature1: "90%+ Accuracy Rate",
+                feature2: "Daily Updated Tips",
+                feature3: "Low-Risk Strategies",
+                feature4: "Proven Profit System",
+                screenshotsTitle: "Screenshots",
+                downloadText: "Download APK",
+                webVersionText: "Web Version",
+                contactTitle: "Contact Support",
+                developerPageText: "Developer Page"
+            },
+            es: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Tu ventaja ganadora en apuestas deportivas",
+                highlightText: "BetLegendaries proporciona <strong>consejos de apuestas basados en datos</strong> con altas tasas de precisión. Nuestros algoritmos analizan miles de partidos para ofrecer <strong>oportunidades de apuestas seguras</strong> que maximizan tus ganancias mientras minimizan los riesgos.",
+                whyChooseUs: "¿Por qué elegirnos?",
+                feature1: "Tasa de precisión del 90%+",
+                feature2: "Consejos actualizados diariamente",
+                feature3: "Estrategias de bajo riesgo",
+                feature4: "Sistema de ganancias probado",
+                screenshotsTitle: "Capturas de pantalla",
+                downloadText: "Descargar APK",
+                webVersionText: "Versión web",
+                contactTitle: "Contactar con soporte",
+                developerPageText: "Página del desarrollador"
+            },
+            fr: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Votre avantage gagnant dans les paris sportifs",
+                highlightText: "BetLegendaries fournit des <strong>conseils de pari basés sur les données</strong> avec des taux de précision élevés. Nos algorithmes analysent des milliers de matchs pour offrir des <strong>opportunités de pari sûres</strong> qui maximisent vos profits tout en minimisant les risques.",
+                whyChooseUs: "Pourquoi nous choisir?",
+                feature1: "Taux de précision de 90%+",
+                feature2: "Conseils mis à jour quotidiennement",
+                feature3: "Stratégies à faible risque",
+                feature4: "Système de profit éprouvé",
+                screenshotsTitle: "Captures d'écran",
+                downloadText: "Télécharger APK",
+                webVersionText: "Version Web",
+                contactTitle: "Contactez le support",
+                developerPageText: "Page du développeur"
+            },
+            de: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Ihr gewinnbringender Vorteil beim Sportwetten",
+                highlightText: "BetLegendaries bietet <strong>datengetriebene Wett-Tipps</strong> mit hohen Genauigkeitsraten. Unsere Algorithmen analysieren Tausende von Spielen, um <strong>sichere Wettmöglichkeiten</strong> zu liefern, die Ihre Gewinne maximieren und gleichzeitig die Risiken minimieren.",
+                whyChooseUs: "Warum uns wählen?",
+                feature1: "90%+ Genauigkeitsrate",
+                feature2: "Täglich aktualisierte Tipps",
+                feature3: "Risikoarme Strategien",
+                feature4: "Bewährtes Profit-System",
+                screenshotsTitle: "Screenshots",
+                downloadText: "APK herunterladen",
+                webVersionText: "Web-Version",
+                contactTitle: "Support kontaktieren",
+                developerPageText: "Entwicklerseite"
+            },
+            pt: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Sua vantagem vencedora em apostas esportivas",
+                highlightText: "BetLegendaries fornece <strong>dicas de apostas baseadas em dados</strong> com altas taxas de precisão. Nossos algoritmos analisam milhares de partidas para oferecer <strong>oportunidades de apostas seguras</strong> que maximizam seus lucros enquanto minimizam os riscos.",
+                whyChooseUs: "Por que nos escolher?",
+                feature1: "Taxa de precisão de 90%+",
+                feature2: "Dicas atualizadas diariamente",
+                feature3: "Estratégias de baixo risco",
+                feature4: "Sistema de lucro comprovado",
+                screenshotsTitle: "Capturas de tela",
+                downloadText: "Baixar APK",
+                webVersionText: "Versão Web",
+                contactTitle: "Contatar suporte",
+                developerPageText: "Página do desenvolvedor"
+            },
+            sw: {
+                mainTitle: "BetLegendaries",
+                mainSubtitle: "Ushindi wako katika kamari ya michezo",
+                highlightText: "BetLegendaries hutoa <strong>vidokezo vya kamari vilivyo na data</strong> kwa viwango vya juu vya usahihi. Algorithm zetu huchambua maelfu ya mechi kutoa <strong>fursa salama za kamari</strong> ambazo huongeza faida yako huku ukipunguza hatari.",
+                whyChooseUs: "Kwa nini kuchagua sisi?",
+                feature1: "Kiwango cha usahihi 90%+",
+                feature2: "Vidokezo vinavyosasishwa kila siku",
+                feature3: "Mbinu zenye hatari ndogo",
+                feature4: "Mfumo thabiti wa faida",
+                screenshotsTitle: "Picha za skrini",
+                downloadText: "Pakua APK",
+                webVersionText: "Toleo la wavuti",
+                contactTitle: "Wasiliana na usaidizi",
+                developerPageText: "Ukurasa wa msanidi programu"
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'en';
+
+        // Language selector functionality
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const currentLanguageText = document.getElementById('currentLanguage');
+
+        languageBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function() {
+            languageDropdown.classList.remove('show');
+        });
+
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+                languageDropdown.classList.remove('show');
+            });
+        });
+
+        // Change language function
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            currentLanguageText.textContent = lang.toUpperCase();
+            
+            // Update all text elements
+            for (const [key, value] of Object.entries(translations[lang])) {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (key === 'highlightText') {
+                        element.innerHTML = value;
+                    } else {
+                        element.textContent = value;
+                    }
+                }
+            }
+            
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize language
+        const preferredLanguage = localStorage.getItem('preferredLanguage') || navigator.language.slice(0, 2);
+        if (translations[preferredLanguage]) {
+            changeLanguage(preferredLanguage);
+        } else {
+            changeLanguage('en');
+        }
+
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -745,21 +850,50 @@
                 
                 // Random position
                 particle.style.left = `${Math.random() * 100}vw`;
-                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.bottom = `-${size}px`;
                 
                 // Random animation duration between 10s and 20s
                 const duration = Math.random() * 10 + 10;
                 particle.style.animationDuration = `${duration}s`;
                 
                 // Random delay
-                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
         
-        // Initialize particles when page loads
-        window.addEventListener('load', createParticles);
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = window.innerWidth < 480 ? 30 : 60;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1px and 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation duration between 3s and 8s
+                const duration = Math.random() * 5 + 3;
+                star.style.animationDuration = `${duration}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Initialize background elements when page loads
+        window.addEventListener('load', function() {
+            createParticles();
+            createStars();
+        });
         
         function openModal(imgElement) {
             const modal = document.getElementById('imageModal');
@@ -767,11 +901,6 @@
             modal.style.display = 'flex';
             modalImg.src = imgElement.src;
             document.body.style.overflow = 'hidden';
-            
-            // Reset image style to ensure proper display
-            modalImg.style.maxWidth = '100%';
-            modalImg.style.maxHeight = '100%';
-            modalImg.style.objectFit = 'contain';
         }
 
         function closeModal() {
@@ -792,16 +921,6 @@
             this.classList.add('loading');
             btnText.style.opacity = '0';
             loadingDots.style.display = 'flex';
-            
-            // Add ripple effect
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            this.appendChild(ripple);
-            
-            // Remove ripple after animation
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
             
             // Simulate download (replace with actual download logic)
             setTimeout(() => {
@@ -826,26 +945,6 @@
                 this.classList.remove('active');
             }, {passive: true});
         });
-        
-        // Animate features on scroll
-        const featureItems = document.querySelectorAll('.feature-item');
-        
-        function checkScroll() {
-            featureItems.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (itemTop < windowHeight - 50) {
-                    item.style.animationPlayState = 'running';
-                }
-            });
-        }
-        
-        // Initial check
-        checkScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', checkScroll);
     </script>
 </body>
 </html>
